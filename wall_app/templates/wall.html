@@ -8,20 +8,27 @@
     <link rel="stylesheet" href="{% static 'wall.css' %}">
 </head>
 <body>
-    <h1 id="head">Welcome to {{request.session.user_name}}'s Wall </h1>
+    <div id="wrapper">
+    <h1 id="head">Welcome to the Wall </h1>
+<div id="top_right">
+    <p>Hello {{request.session.user_name}}</p>
     <a href="/logout" id="logout">Logout</a>
+</div>
     <h2>Post Here!</h2>
     <form action="/post_message" method="post" id="message">
         {% csrf_token %}
-        <input type="text" name="message">
+        <textarea name="message" cols="30" rows="10"></textarea>
         <input type="submit" value="Post">
         </form>
         <div id='posts'>
             {% for post in wall_messages %}
                 <div class='one_post'>
-                    <p>Posted by: {{post.person.first_name}} {{post.person.last_name}}</p>
                     <p class='post'>{{post.message}}</p>
+                    <p id="by">Posted by: {{post.person.first_name}} {{post.person.last_name}}</p>
+                    <p>Posted at: {{post.created_at}}</p>
+                    {% if post.person.id == request.session.user_id %}
                     <a href="/delete_mess/{{post.id}}">Delete</a>
+                    {% endif %}
                     <div class="comment">
                     <form action="/add_comment/{{post.id}}" method=POST>
                         {% csrf_token %}
@@ -30,14 +37,18 @@
                     </form>
                     
                     {% for comment in post.post_comments.all %}
-                        <p>Comment by: {{comment.person.first_name}} {{comment.person.last_name}}</p>
+                        
                         <p>{{comment.comment}}</p>
+                        <p id="by">Comment by: {{comment.person.first_name}} {{comment.person.last_name}}</p>
+                        <p>Commented at: {{comment.created_at}}</p>
+                        {% if comment.person.id == request.session.user_id %}
                         <a href="/delete_comm/{{comment.id}}">Delete</a>
+                        {% endif %}
                     {% endfor %}
                     </div>
                 </div>
             {% endfor %}
         </div>
-
+    </div>
 </body>
 </html>

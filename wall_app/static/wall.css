@@ -1,16 +1,33 @@
+div#wrapper{
+    padding-left: 15px;
+}
+
 h1#head{
     display: inline-block;
     margin-right: 200px;
+    vertical-align: top;
 }
 
 #logout{
     display:inline-block;
 }
 
-div#message{
-}
-
 div.comment{
     padding-left: 20px;
+    margin-top: 20px;
+    color: green;
+}
+
+p.post{
+    font-size: 20px;
+}
+
+div#top_right{
+    display: inline-block;
     margin-top: 10px;
+}
+
+p#by{
+    font-style: italic;
+    font-size: 12px;
 }
