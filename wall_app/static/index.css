@@ -1,0 +1,21 @@
+#create_user{
+    margin: 5px;
+}
+
+#login_user{
+    margin: 5px;
+}
+
+
+div#reg{
+    display: inline-block;
+    width: 40%;
+}
+
+div#login{
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+

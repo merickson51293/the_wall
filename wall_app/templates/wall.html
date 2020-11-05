@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wall</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'wall.css' %}">
+</head>
+<body>
+    <h1 id="head">Welcome to {{request.session.user_name}}'s Wall </h1>
+    <a href="/logout" id="logout">Logout</a>
+    <h2>Post Here!</h2>
+    <form action="/post_message" method="post" id="message">
+        {% csrf_token %}
+        <input type="text" name="message">
+        <input type="submit" value="Post">
+        </form>
+        <div id='posts'>
+            {% for post in wall_messages %}
+                <div class='one_post'>
+                    <p>Posted by: {{post.person.first_name}} {{post.person.last_name}}</p>
+                    <p class='post'>{{post.message}}</p>
+                    <a href="/delete_mess/{{post.id}}">Delete</a>
+                    <div class="comment">
+                    <form action="/add_comment/{{post.id}}" method=POST>
+                        {% csrf_token %}
+                        <input type="text" name='comment'>
+                        <input type="submit" value='Comment'>
+                    </form>
+                    
+                    {% for comment in post.post_comments.all %}
+                        <p>Comment by: {{comment.person.first_name}} {{comment.person.last_name}}</p>
+                        <p>{{comment.comment}}</p>
+                        <a href="/delete_comm/{{comment.id}}">Delete</a>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+</body>
+</html>

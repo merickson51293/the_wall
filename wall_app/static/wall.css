@@ -1,0 +1,16 @@
+h1#head{
+    display: inline-block;
+    margin-right: 200px;
+}
+
+#logout{
+    display:inline-block;
+}
+
+div#message{
+}
+
+div.comment{
+    padding-left: 20px;
+    margin-top: 10px;
+}
